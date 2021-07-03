@@ -1,0 +1,5 @@
+.env
+/dist
+main.db
+main.db-journal
+node_modules

@@ -1,0 +1,24 @@
+{
+  "name": "p_test",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "migrate": "prisma migrate deploy",
+    "dev": "nodemon src/index.ts",
+    "postinstall": "npm run build && npm run migrate"
+  },
+  "dependencies": {
+    "@prisma/client": "^2.26.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.10",
+    "@types/express": "^4.17.12",
+    "@types/node": "^15.14.0",
+    "prisma": "^2.26.0",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.5"
+  }
+}
