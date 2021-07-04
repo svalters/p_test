@@ -1,5 +1,10 @@
 import React from "react"
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
 import JSConfetti from "js-confetti"
@@ -46,6 +51,7 @@ function App() {
                   component={Result}
                   exact
                 />
+                <Redirect to='/' />
               </Switch>
             </Router>
           </ToastProvider>
