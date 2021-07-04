@@ -14,9 +14,9 @@ const ProgressBar: React.FC<{ total: number; lastQuestionIndex: number }> = ({
           className='bg-green-300 transition-all duration-500 ease-in-out'
         />
       </div>
-      <p className='font-bold ml-6'>{Math.round(percentage)}%</p>
+      <p className='font-bold ml-6 !my-0'>{Math.round(percentage)}%</p>
     </div>
   )
 }
 
-export default ProgressBar
+export default React.memo(ProgressBar)

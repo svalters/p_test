@@ -10,10 +10,16 @@ interface AnswersProps {
   onSubmit: (data: Answer) => void
   quizId: number
   questionId?: number
+  questionTitle?: string
 }
 
-const Answers: React.FC<AnswersProps> = ({ onSubmit, quizId, questionId }) => {
-  const { data: answers, isLoading } = useAnswers(
+const Answers: React.FC<AnswersProps> = ({
+  onSubmit,
+  quizId,
+  questionId,
+  questionTitle,
+}) => {
+  const { data: answers } = useAnswers(
     {
       quizId: Number(quizId),
       questionId: Number(questionId),
@@ -25,46 +31,53 @@ const Answers: React.FC<AnswersProps> = ({ onSubmit, quizId, questionId }) => {
     handleSubmit,
     register,
     reset,
-    formState: { isDirty, isSubmitting },
+    formState: { isSubmitting, isValid, isDirty },
   } = useForm({
     mode: "onChange",
   })
 
   useEffect(() => {
-    reset()
+    questionId && reset()
   }, [reset, questionId])
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className='w-full h-full flex flex-col'
+      className='flex flex-col h-full w-full'
     >
-      <Loading isLoading={isLoading || isSubmitting}>
-        <div className='grid grid-cols-1 lg:grid-cols-2 gap-x-6 w-full'>
-          {(answers ?? []).map(option => (
-            <div
-              key={option.id.toString()}
-              className='rounded shadow-lg w-full my-2'
-            >
-              <label className='flex items-center cursor-pointer'>
-                <div className='bg-gray-200 flex p-4'>
-                  <input
-                    type='radio'
-                    value={option.id.toString()}
-                    {...register(`answerId`, { required: true })}
-                  />
-                </div>
-                <span className='ml-4'>{option.title}</span>
-              </label>
+      <div className='flex flex-1'>
+        <Loading isLoading={!answers?.length || isSubmitting}>
+          {() => (
+            <div className='flex flex-col justify-center flex-1'>
+              <h2 className='!mt-0 lg:pb-12'>{questionTitle}</h2>
+              <div className='grid grid-cols-1 lg:grid-cols-2 gap-x-6 w-full'>
+                {(answers ?? []).map(option => (
+                  <div
+                    key={option.id.toString()}
+                    className='w-full my-2 overflow-hidden rounded shadow-lg focus-within:ring-2'
+                  >
+                    <label className='flex cursor-pointer'>
+                      <div className='flex self-start bg-gray-200 p-4'>
+                        <input
+                          type='radio'
+                          value={option.id.toString()}
+                          {...register(`answerId`, { required: true })}
+                        />
+                      </div>
+                      <div className='flex items-center pl-4'>
+                        <p className='!m-0'>{option.title}</p>
+                      </div>
+                    </label>
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
-        </div>
-      </Loading>
+          )}
+        </Loading>
+      </div>
 
-      <div className='flex flex-grow' />
-
-      <div className='flex flex-col pt-12'>
-        <Button type='submit' disabled={isLoading || !isDirty || isSubmitting}>
+      <div className='flex flex-col py-6'>
+        <Button type='submit' disabled={!isValid || !isDirty || isSubmitting}>
           Submit Answer
         </Button>
       </div>
@@ -72,4 +85,4 @@ const Answers: React.FC<AnswersProps> = ({ onSubmit, quizId, questionId }) => {
   )
 }
 
-export default Answers
+export default React.memo(Answers)

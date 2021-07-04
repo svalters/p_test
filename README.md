@@ -17,6 +17,7 @@ npm i && npm start
 - `react-hook-form` for form handling. No previous experience, trying it out as an alternative to `formik`
 - `react-transition-group` for some transitions
 - `react-query` for data fetching & caching. No previous experience, trying it out as an alternative to state management libraries
+- `js-confetti` finish test with correct answers and find out
 
 ## Backend
 

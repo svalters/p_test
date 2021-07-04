@@ -6,11 +6,6 @@ html,
 body,
 #root {
   height: 100%;
-  width: 100%;
-}
-
-.base-container {
-  min-height: 600px;
 }
 
 /* Slide */

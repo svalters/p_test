@@ -14,3 +14,6 @@ export const post = (url: string, body: Record<string, any>) =>
     body: JSON.stringify(body),
     headers,
   }).then(res => res.json())
+
+export const setName = (name: string) => localStorage.setItem("name", name)
+export const getName = () => localStorage.getItem("name")

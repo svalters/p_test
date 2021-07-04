@@ -12,4 +12,4 @@ const Button: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   </button>
 )
 
-export default Button
+export default React.memo(Button)

@@ -34,5 +34,5 @@ export interface RouteParams {
 }
 
 export interface QuestionRouteParams extends RouteParams {
-  questionId: string
+  questionId?: string
 }

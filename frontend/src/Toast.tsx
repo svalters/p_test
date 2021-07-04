@@ -18,19 +18,23 @@ export const ToastContext = createContext((_toast: ToastProps) => {})
 const ToastProvider: React.FC = ({ children }) => {
   const [toasts, setToasts] = useState<Required<ToastProps>[]>([])
 
-  const addToast = useCallback((toast: ToastProps) => {
-    const newToast = {
-      id: Date.now(),
-      type: ToastType.info,
-      ...toast,
-    }
-    setToasts(toasts => [...toasts, newToast])
+  const addToast = useCallback(
+    (toast: ToastProps) => {
+      const newToast = {
+        id: Date.now(),
+        type: ToastType.info,
+        ...toast,
+      }
 
-    setTimeout(
-      () => setToasts(toasts => toasts.filter(item => item.id !== newToast.id)),
-      timeout
-    )
-  }, [])
+      setToasts(toasts => [...toasts, newToast])
+      setTimeout(
+        () =>
+          setToasts(toasts => toasts.filter(item => item.id !== newToast.id)),
+        timeout
+      )
+    },
+    [setToasts]
+  )
 
   return (
     <ToastContext.Provider value={addToast}>

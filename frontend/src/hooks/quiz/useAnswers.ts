@@ -1,5 +1,6 @@
 import { useQuery, UseQueryOptions } from "react-query"
 
+import { queryClient } from "@/App"
 import { get } from "@/utils"
 import { QUIZ_URL } from "@/constants"
 import { QuizItem } from "@/types"
@@ -17,6 +18,11 @@ export const fetchAnswers = ({
   questionId,
 }: AnswerParams): Promise<QuizItem[]> =>
   get(`${QUIZ_URL}?action=answers&quizId=${quizId}&questionId=${questionId}`)
+
+export const prefetchAnswers = ({ quizId, questionId }: AnswerParams) =>
+  queryClient.prefetchQuery(["answers", quizId, questionId], () =>
+    fetchAnswers({ quizId, questionId })
+  )
 
 const useAnswers = (
   { quizId, questionId }: AnswerParams,

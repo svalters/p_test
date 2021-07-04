@@ -8,6 +8,7 @@
   "dependencies": {
     "@tailwindcss/forms": "^0.3.3",
     "@tailwindcss/typography": "^0.4.1",
+    "js-confetti": "^0.8.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-hook-form": "^7.10.0",
